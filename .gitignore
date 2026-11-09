@@ -1,0 +1,44 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+coverage/
+*.log
+.DS_Store
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secret-file
+
+# Node.js
+node_modules/
+dist/
+coverage/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+
+# Ansible
+*.retry
+
+# Vim
+*.swp
+*.swo
+*.swx
+*~
+
+# System
+.DS_Store
+
+# Terraform plan files
+*.tfplan

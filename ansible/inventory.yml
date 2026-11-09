@@ -1,0 +1,11 @@
+all:
+  children:
+    jenkins_agents:
+      hosts:
+        i-096804a4f529673bb:
+          ansible_connection: amazon.aws.aws_ssm
+          ansible_aws_ssm_region: us-east-1
+          ansible_aws_ssm_bucket_name: taskflow-ansible-ssm-598726482239-us-east-1
+          ansible_aws_ssm_profile: kay-admin
+          ansible_user: ssm-user
+          ansible_python_interpreter: /usr/bin/python3

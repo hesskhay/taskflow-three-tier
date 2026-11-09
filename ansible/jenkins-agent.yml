@@ -1,0 +1,45 @@
+---
+- name: Configure TaskFlow Jenkins build agent
+  hosts: jenkins_agents
+  become: true
+
+  tasks:
+    - name: Update APT package cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install Java, Git, Docker and dependencies
+      ansible.builtin.apt:
+        name:
+          - openjdk-21-jre-headless
+          - git
+          - docker.io
+          - python3
+          - ca-certificates
+          - curl
+        state: present
+
+    - name: Enable and start Docker
+      ansible.builtin.systemd_service:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Create Jenkins agent user
+      ansible.builtin.user:
+        name: jenkins
+        shell: /bin/bash
+        home: /home/jenkins
+        create_home: true
+        groups: docker
+        append: true
+        state: present
+
+    - name: Create Jenkins agent workspace
+      ansible.builtin.file:
+        path: /home/jenkins/agent
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: '0755'
